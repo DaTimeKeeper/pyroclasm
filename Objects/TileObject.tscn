@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://ck8yrejxvhper"]
+[gd_scene load_steps=5 format=3 uid="uid://co8bhj2renswa"]
 
-[sub_resource type="GDScript" id="GDScript_hxuvw"]
+[ext_resource type="Script" path="res://Objects/TileObject.gd" id="1_l7g63"]
+[ext_resource type="Texture2D" uid="uid://upwd82y8h78t" path="res://ArtAssets/TestTileSpriteSheet.png" id="2_8kmga"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hg1ke"]
+atlas = ExtResource("2_8kmga")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="GDScript" id="GDScript_cxlv5"]
 script/source = "extends Camera2D
 
 @export var speed = 400 # How fast the camera will move (pixels/sec).
@@ -34,8 +41,13 @@ func _process(delta):
 
 "
 
-[node name="Main" type="Node2D"]
+[node name="TileObject" type="Node2D"]
+script = ExtResource("1_l7g63")
+
+[node name="TileArt" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_hg1ke")
+offset = Vector2(16, 16)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 process_callback = 0
-script = SubResource("GDScript_hxuvw")
+script = SubResource("GDScript_cxlv5")
