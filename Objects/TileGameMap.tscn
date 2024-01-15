@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://cuunfv0u7c8a6"]
+
+[ext_resource type="Script" path="res://Objects/Scripts/TileObject.gd" id="1_l7g63"]
+[ext_resource type="Texture2D" uid="uid://upwd82y8h78t" path="res://ArtAssets/TestTileSpriteSheet.png" id="2_8kmga"]
+[ext_resource type="Script" path="res://Objects/Scripts/Fire.gd" id="3_6681h"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k5rq4"]
+texture = ExtResource("2_8kmga")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:1/0 = 0
+0:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_lrfjc"]
+tile_size = Vector2i(32, 32)
+custom_data_layer_0/name = "Position"
+custom_data_layer_0/type = 5
+sources/0 = SubResource("TileSetAtlasSource_k5rq4")
+
+[node name="TileGameMap" type="TileMap"]
+tile_set = SubResource("TileSet_lrfjc")
+rendering_quadrant_size = 32
+format = 2
+layer_0/tile_data = PackedInt32Array(1, 0, 1, 0, 0, 1)
+script = ExtResource("1_l7g63")
+
+[node name="FireNode" type="Node2D" parent="."]
+script = ExtResource("3_6681h")
+
+[connection signal="onFire" from="." to="FireNode" method="_on_tile_game_map_on_fire"]
+[connection signal="setfire" from="FireNode" to="." method="_on_fire_node_setfire"]

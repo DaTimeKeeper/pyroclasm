@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://ck8yrejxvhper"]
+[gd_scene load_steps=3 format=3 uid="uid://ck8yrejxvhper"]
+
+[ext_resource type="PackedScene" uid="uid://cuunfv0u7c8a6" path="res://Objects/TileGameMap.tscn" id="1_obsdl"]
 
 [sub_resource type="GDScript" id="GDScript_hxuvw"]
 script/source = "extends Camera2D
@@ -37,5 +39,8 @@ func _process(delta):
 [node name="Main" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.5, 2.5)
 process_callback = 0
 script = SubResource("GDScript_hxuvw")
+
+[node name="TileGameMap" parent="." instance=ExtResource("1_obsdl")]

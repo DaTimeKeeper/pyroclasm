@@ -1,4 +1,4 @@
-extends Node2D
+extends TileMap
 
 @export var fuel = 0
 @export var greenery = 0
@@ -6,6 +6,9 @@ extends Node2D
 @export var type = 0
 @export var status = 0 
 @export var burnRate = 0
+
+
+
 
 var wetMax = 0
 var burnMax = 0
@@ -15,6 +18,8 @@ var burnMaxLvl = [0, 1, 3, 5]
 
 enum TILE_TYPES {DIRT, GRASS, BUSH, TRESS}
 enum TILE_STATUS { GREEN, BURNING, BURNED, WET}
+
+signal onFire(CurBurnRate: int, position: Vector2i)
 
 func construct(setType):
 	type     = setType
@@ -26,6 +31,8 @@ func construct(setType):
 	burnMax  = burnMaxLvl[setType]
 
 func burn():
+	if(isWet()):
+		return
 	match status:
 		0:
 			greenery -= burnRate
@@ -35,6 +42,7 @@ func burn():
 			burnRate = 0
 	
 	changeStatus()
+	
 	
 func water():
 	if(isBurning()):
@@ -83,16 +91,10 @@ func changeStatus():
 		status = 0
 	elif(isBurning()):
 		status = 1
+		onFire.emit(burnRate)
 	elif(isBurnedOut()):
 		status = 2
 		burnRate = 0
 
-
-# Called when the node enters the scene tree for the first time.
-#func _ready():
-	#pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-	#pass
+func _on_fire_node_setfire(burnDamage:Variant):
+	heatUp(burnDamage)
