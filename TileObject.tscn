@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://24efajbme5q1"]
+
+[ext_resource type="Script" path="res://Objects/Scripts/TileObject.gd" id="1_3dtac"]
+[ext_resource type="Texture2D" uid="uid://upwd82y8h78t" path="res://ArtAssets/TestTileSpriteSheet.png" id="2_2higv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_njs1g"]
+atlas = ExtResource("2_2higv")
+region = Rect2(0, 0, 32, 32)
+
+[node name="TileObject" type="Area2D"]
+disable_mode = 1
+script = ExtResource("1_3dtac")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(16, 16)
+texture = SubResource("AtlasTexture_njs1g")
+
+[node name="Finder" type="Marker2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Finder"]

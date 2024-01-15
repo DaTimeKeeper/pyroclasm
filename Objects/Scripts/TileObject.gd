@@ -1,4 +1,5 @@
-extends TileMap
+extends Node2D
+
 
 @export var fuel = 0
 @export var greenery = 0
@@ -6,8 +7,12 @@ extends TileMap
 @export var type = 0
 @export var status = 0 
 @export var burnRate = 0
+@export var spot : Vector2i
 
+signal OnFire
 
+enum TILE_TYPES {DIRT, GRASS, BUSH, TRESS}
+enum TILE_STATUS { GREEN, BURNING, BURNED, WET}
 
 
 var wetMax = 0
@@ -16,12 +21,8 @@ var burnMax = 0
 var maxLvl =[0, 5, 15, 30]
 var burnMaxLvl = [0, 1, 3, 5]
 
-enum TILE_TYPES {DIRT, GRASS, BUSH, TRESS}
-enum TILE_STATUS { GREEN, BURNING, BURNED, WET}
 
-signal onFire(CurBurnRate: int, position: Vector2i)
-
-func construct(setType):
+func _init(setType):
 	type     = setType
 	status   = 1
 	wet      = maxLvl[setType]
@@ -29,8 +30,11 @@ func construct(setType):
 	greenery = maxLvl[setType]
 	fuel     = maxLvl[setType]
 	burnMax  = burnMaxLvl[setType]
+	spot     = Vector2(self.position)
+	
 
 func burn():
+	onFire.emit()
 	if(isWet()):
 		return
 	match status:
@@ -53,6 +57,7 @@ func water():
 	changeStatus()
 
 func heatUp(amount):
+	
 	if(isWet()):
 		wet -= amount
 	elif(!isBurnedOut() && burnRate != burnMax):
@@ -91,10 +96,23 @@ func changeStatus():
 		status = 0
 	elif(isBurning()):
 		status = 1
-		onFire.emit(burnRate)
 	elif(isBurnedOut()):
 		status = 2
 		burnRate = 0
 
-func _on_fire_node_setfire(burnDamage:Variant):
-	heatUp(burnDamage)
+func findNeigbor():
+	
+	var tile = 0
+	
+		
+func getNeigbors():
+
+	pass
+
+
+		
+func _process(delta):
+	if (Input.is_action_pressed("TestFrie")):
+		findNeigbor()
+		#set_cell(0, spot, get_cell_source_id(0, spot), Vector2i(0, 0))
+
