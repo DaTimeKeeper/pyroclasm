@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cuunfv0u7c8a6"]
+[gd_scene load_steps=5 format=3 uid="uid://buuku7msvwj2c"]
 
 [ext_resource type="Script" path="res://Objects/Scripts/TileObject.gd" id="1_l7g63"]
 [ext_resource type="Texture2D" uid="uid://upwd82y8h78t" path="res://ArtAssets/TestTileSpriteSheet.png" id="2_8kmga"]
@@ -6,17 +6,77 @@
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k5rq4"]
 texture = ExtResource("2_8kmga")
 texture_region_size = Vector2i(32, 32)
+0:0/next_alternative_id = 6
 0:0/0 = 0
+0:0/0/custom_data_1 = 1
+0:0/0/custom_data_2 = true
+0:0/1 = 1
+0:0/1/modulate = Color(1, 0, 0, 1)
+0:0/1/custom_data_3 = true
+0:1/next_alternative_id = 14
 0:1/0 = 0
+0:1/0/custom_data_0 = 1
+0:1/0/custom_data_1 = 3
+0:1/0/custom_data_2 = true
+0:1/1 = 1
+0:1/1/modulate = Color(1, 0, 0, 1)
+0:1/1/custom_data_0 = 1
+0:1/1/custom_data_3 = true
+0:1/2 = 2
+0:1/2/modulate = Color(0, 1, 0, 1)
+0:1/2/custom_data_0 = 1
+0:1/2/custom_data_1 = 1
+0:1/2/custom_data_2 = true
+0:1/3 = 3
+0:1/3/modulate = Color(0, 0, 1, 1)
+0:1/3/custom_data_0 = 1
+0:1/3/custom_data_1 = 2
+0:1/3/custom_data_2 = true
+0:2/next_alternative_id = 21
 0:2/0 = 0
+0:2/0/custom_data_0 = 2
+0:2/0/custom_data_1 = 5
+0:2/0/custom_data_2 = true
+0:2/1 = 1
+0:2/1/modulate = Color(1, 0, 0, 1)
+0:2/1/custom_data_0 = 2
+0:2/1/custom_data_3 = true
+0:2/2 = 2
+0:2/2/modulate = Color(1, 0.52549, 0, 1)
+0:2/2/custom_data_0 = 2
+0:2/2/custom_data_1 = 1
+0:2/2/custom_data_2 = true
+0:2/3 = 3
+0:2/3/modulate = Color(0, 1, 0, 1)
+0:2/3/custom_data_0 = 2
+0:2/3/custom_data_1 = 2
+0:2/3/custom_data_2 = true
+0:2/4 = 4
+0:2/4/modulate = Color(1, 0, 1, 1)
+0:2/4/custom_data_0 = 2
+0:2/4/custom_data_1 = 3
+0:2/4/custom_data_2 = true
+0:2/5 = 5
+0:2/5/modulate = Color(0, 0, 1, 1)
+0:2/5/custom_data_0 = 2
+0:2/5/custom_data_1 = 4
+0:2/5/custom_data_2 = true
 
 [sub_resource type="TileSet" id="TileSet_lrfjc"]
 tile_size = Vector2i(32, 32)
+custom_data_layer_0/name = "type"
+custom_data_layer_0/type = 2
+custom_data_layer_1/name = "health"
+custom_data_layer_1/type = 2
+custom_data_layer_2/name = "burnable"
+custom_data_layer_2/type = 1
+custom_data_layer_3/name = "onFire"
+custom_data_layer_3/type = 1
 sources/0 = SubResource("TileSetAtlasSource_k5rq4")
 
 [node name="TileGameMap" type="TileMap"]
 tile_set = SubResource("TileSet_lrfjc")
 rendering_quadrant_size = 32
 format = 2
-layer_0/tile_data = PackedInt32Array(1, 0, 1, 0, 0, 1)
+layer_0/tile_data = PackedInt32Array(1, 0, 1, 0, 0, 0, 65536, 0, 1, 65537, 0, 65536, 65538, 0, 0, 2, 0, 2, 3, 0, 0, 65539, 0, 1, 131075, 0, 2, 131074, 0, 1, 131073, 0, 0, 131072, 0, 2)
 script = ExtResource("1_l7g63")

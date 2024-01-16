@@ -1,118 +1,48 @@
-extends Node2D
+extends TileMap
 
-
-@export var fuel = 0
-@export var greenery = 0
-@export var wet = 0
-@export var type = 0
-@export var status = 0 
-@export var burnRate = 0
 @export var spot : Vector2i
 
-signal OnFire
-
-enum TILE_TYPES {DIRT, GRASS, BUSH, TRESS}
+@onready var tileMap: TileMap =$"."
+enum TILE_TYPES {GRASS, BUSH, TRESS}
 enum TILE_STATUS { GREEN, BURNING, BURNED, WET}
 
 
-var wetMax = 0
-var burnMax = 0
-
-var maxLvl =[0, 5, 15, 30]
-var burnMaxLvl = [0, 1, 3, 5]
+var startingFireTile = Vector2i(1,1)
+var tilesOnFire= [startingFireTile]
 
 
-func _init(setType):
-	type     = setType
-	status   = 1
-	wet      = maxLvl[setType]
-	wetMax   = maxLvl[setType]
-	greenery = maxLvl[setType]
-	fuel     = maxLvl[setType]
-	burnMax  = burnMaxLvl[setType]
-	spot     = Vector2(self.position)
-	
-
-func burn():
-	onFire.emit()
-	if(isWet()):
-		return
-	match status:
-		0:
-			greenery -= burnRate
-		1:
-			fuel -= burnRate
-		2:
-			burnRate = 0
-	
-	changeStatus()
-	
-	
-func water():
-	if(isBurning()):
-		burnRate -= 1
-	elif(wet < wetMax):
-		wet += 1
-	
-	changeStatus()
-
-func heatUp(amount):
-	
-	if(isWet()):
-		wet -= amount
-	elif(!isBurnedOut() && burnRate != burnMax):
-		burnRate += amount
 		
-	changeStatus()
 
-func isBurning():
-	if(burnRate < 0 && fuel > 0):
-		return true
-	else:
-		return false
-
-func isWet():
-	if(wet < 0):
-		return true
-	else:
-		return false
-
-func isGreen():
-	if(greenery < 0):
-		return true
-	else:
-		return false
-
-func isBurnedOut():
-	if(fuel <= 0):
-		return true
-	else:
-		return false
-
-func changeStatus():
-	if(isWet()):
-		status = 3
-	elif(isGreen()):
-		status = 0
-	elif(isBurning()):
-		status = 1
-	elif(isBurnedOut()):
-		status = 2
-		burnRate = 0
-
-func findNeigbor():
-	
-	var tile = 0
-	
-		
-func getNeigbors():
-
-	pass
 
 
 		
 func _process(delta):
-	if (Input.is_action_pressed("TestFrie")):
-		findNeigbor()
-		#set_cell(0, spot, get_cell_source_id(0, spot), Vector2i(0, 0))
+	pass
+		
+		
+#func doDamage(tilePosition:Vector2i):
+	#var tile : TileData=tileMap.get_cell_tile_data(tilePosition)
+	#var health = tile.get_custom_data("health")
+	#tileMap.set_cell(0,n,0,tile.texture_origin,health-1)
+	#if health-1==0:
+		#tileMap.set_cell(0,tilePosition,0,Vector2i(1,2),0)
+		#return tilePosition
 
+
+
+func _on_timer_timeout():
+	var futureTilesOnFire=[]
+	for t in tilesOnFire:
+		var currentTile =tileMap.get_cell_tile_data(0,t)
+		if currentTile:
+			var neighbors : Array[Vector2i] = tileMap.get_surrounding_cells(t)
+			for n in neighbors:
+				var neighborTile =tileMap.get_cell_tile_data(0,n)
+				if neighborTile:
+					var neighborHealth = neighborTile.get_custom_data("health")
+					var neighborType = neighborTile.get_custom_data("type")
+					if neighborTile.get_custom_data("burnable"):
+						tileMap.set_cell(0,n,0,Vector2(0,neighborType),neighborHealth)
+						if neighborHealth-1==0:
+							futureTilesOnFire.append(n)
+	tilesOnFire=tilesOnFire+futureTilesOnFire
