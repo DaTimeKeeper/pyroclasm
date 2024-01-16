@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ck8yrejxvhper"]
 
-[ext_resource type="PackedScene" path="res://Objects/TileGameMap.tscn" id="1_obsdl"]
+[ext_resource type="PackedScene" uid="uid://578mjdy0o5n6" path="res://Objects/TileGameMap.tscn" id="1_bfg77"]
 
 [sub_resource type="GDScript" id="GDScript_hxuvw"]
 script/source = "extends Camera2D
@@ -45,7 +45,7 @@ zoom = Vector2(6, 6)
 process_callback = 0
 script = SubResource("GDScript_hxuvw")
 
-[node name="TileGameMap" parent="." instance=ExtResource("1_obsdl")]
+[node name="TileGameMap" parent="." instance=ExtResource("1_bfg77")]
 
 [node name="Timer" type="Timer" parent="TileGameMap"]
 autostart = true

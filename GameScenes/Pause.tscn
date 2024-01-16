@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://bihij5mkjrxn5"]
+
+[ext_resource type="Script" path="res://Scripts/Pause.gd" id="1_tub11"]
+
+[node name="Pause" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_tub11")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 800.0
+offset_top = 640.0
+offset_right = 1024.0
+offset_bottom = 680.0
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "End Run"
+
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

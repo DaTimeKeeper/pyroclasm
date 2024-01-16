@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://buuku7msvwj2c"]
+[gd_scene load_steps=5 format=3 uid="uid://578mjdy0o5n6"]
 
-[ext_resource type="Script" path="res://Objects/Scripts/TileMap.gd" id="1_l7g63"]
+[ext_resource type="Script" path="res://Scripts/TileMap.gd" id="1_l7g63"]
 [ext_resource type="Texture2D" uid="uid://upwd82y8h78t" path="res://ArtAssets/TestTileSpriteSheet.png" id="2_8kmga"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k5rq4"]
