@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://v140lrds76w4"]
+
+[ext_resource type="PackedScene" uid="uid://24efajbme5q1" path="res://Objects/TileObject.tscn" id="1_36685"]
+
+[node name="Map" type="Node2D"]
+
+[node name="TileObject" parent="." instance=ExtResource("1_36685")]
+
+[node name="TileObject2" parent="." instance=ExtResource("1_36685")]
+position = Vector2(32, 0)

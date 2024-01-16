@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://24efajbme5q1"]
+
+[ext_resource type="Script" path="res://Objects/Scripts/TileObject.gd" id="1_3dtac"]
+[ext_resource type="Texture2D" uid="uid://upwd82y8h78t" path="res://ArtAssets/TestTileSpriteSheet.png" id="2_2higv"]
+[ext_resource type="Script" path="res://Objects/Scripts/FireSpreader.gd" id="3_kilww"]
+[ext_resource type="Texture2D" uid="uid://iwntc3adi8kx" path="res://ArtAssets/icon.svg" id="4_jhycd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_njs1g"]
+atlas = ExtResource("2_2higv")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3as6s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8euo5"]
+
+[node name="TileObject" type="Node2D"]
+script = ExtResource("1_3dtac")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(16, 16)
+texture = SubResource("AtlasTexture_njs1g")
+
+[node name="TileArea" type="Area2D" parent="."]
+position = Vector2(16, 16)
+scale = Vector2(1.6, 1.6)
+disable_mode = 1
+
+[node name="TileCollider" type="CollisionShape2D" parent="TileArea"]
+shape = SubResource("RectangleShape2D_3as6s")
+
+[node name="FinderArea" type="Area2D" parent="."]
+position = Vector2(-17, -17)
+disable_mode = 1
+script = ExtResource("3_kilww")
+
+[node name="FinderCollider" type="CollisionShape2D" parent="FinderArea"]
+scale = Vector2(0.6, 0.6)
+shape = SubResource("RectangleShape2D_8euo5")
+
+[node name="Sprite2D" type="Sprite2D" parent="FinderArea"]
+position = Vector2(6.55651e-07, 6.55651e-07)
+scale = Vector2(0.09375, 0.09375)
+texture = ExtResource("4_jhycd")
+
+[connection signal="onFire" from="." to="FinderArea" method="_on_tile_object_on_fire"]
