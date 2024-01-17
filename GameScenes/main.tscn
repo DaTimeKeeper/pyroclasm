@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ck8yrejxvhper"]
+[gd_scene load_steps=5 format=3 uid="uid://ck8yrejxvhper"]
 
 [ext_resource type="PackedScene" uid="uid://578mjdy0o5n6" path="res://Objects/TileGameMap.tscn" id="1_bfg77"]
+[ext_resource type="Script" path="res://GameScenes/TimerLabel.gd" id="1_w1gnr"]
+[ext_resource type="Script" path="res://GameScenes/Score.gd" id="2_fm2qn"]
 
 [sub_resource type="GDScript" id="GDScript_hxuvw"]
 script/source = "extends Camera2D
@@ -39,15 +41,35 @@ func _process(delta):
 [node name="Main" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(44, 31)
+z_index = 1
+position = Vector2(198, 114)
 scale = Vector2(0.955142, 0.920061)
-zoom = Vector2(6, 6)
+zoom = Vector2(4, 4)
 process_callback = 0
 script = SubResource("GDScript_hxuvw")
+
+[node name="TimerLabel" type="Label" parent="Camera2D"]
+offset_left = -250.225
+offset_top = 123.905
+offset_right = -210.225
+offset_bottom = 146.905
+theme_override_colors/font_color = Color(0.533333, 0.607843, 1, 1)
+text = "0"
+script = ExtResource("1_w1gnr")
+
+[node name="Score" type="Label" parent="Camera2D"]
+offset_left = -251.272
+offset_top = -146.729
+offset_right = -211.272
+offset_bottom = -123.729
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "0"
+script = ExtResource("2_fm2qn")
 
 [node name="TileGameMap" parent="." instance=ExtResource("1_bfg77")]
 
 [node name="Timer" type="Timer" parent="TileGameMap"]
 autostart = true
 
+[connection signal="timeout" from="TileGameMap/Timer" to="Camera2D/TimerLabel" method="_on_timer_timeout"]
 [connection signal="timeout" from="TileGameMap/Timer" to="TileGameMap" method="_on_timer_timeout"]
