@@ -15,8 +15,7 @@ func _process(delta):
 		
 func doDamage(tilePos: Vector2i):
 	var tile: TileData = tileMap.get_cell_tile_data(0, tilePos)
-	var health = tile.get_custom_data("health")
-	var nextHealth =  health - 1
+	var nextHealth =  tile.get_custom_data("health") - 1
 	var type   = tile.get_custom_data("type")
 	var status = tile.get_custom_data("status")
 	var burnable = tile.get_custom_data("burnable")
@@ -25,7 +24,7 @@ func doDamage(tilePos: Vector2i):
 		if (nextHealth== 0):
 			tileMap.set_cell(0, tilePos, 0, Vector2i(status+1, type), nextHealth)
 		else:
-			tileMap.set_cell(0, tilePos, 0, Vector2i(status, type), health)
+			tileMap.set_cell(0, tilePos, 0, Vector2i(status, type), nextHealth)
 
 
 func _on_timer_timeout():
@@ -51,7 +50,11 @@ func _on_timer_timeout():
 				futureTilesOnFire.append(n)
 				
 		doDamage(t)
-		if !tileMap.get_cell_tile_data(0,t).get_custom_data("onFire"):
+		currentTile = tileMap.get_cell_tile_data(0, t)
+
+		if !currentTile:
+			continue
+		if !currentTile.get_custom_data("onFire"):
 			tilesToErase.append(t)
 
 	tilesOnFire = tilesOnFire + futureTilesOnFire

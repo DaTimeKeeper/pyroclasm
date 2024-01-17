@@ -48,7 +48,6 @@ script = SubResource("GDScript_hxuvw")
 [node name="TileGameMap" parent="." instance=ExtResource("1_bfg77")]
 
 [node name="Timer" type="Timer" parent="TileGameMap"]
-wait_time = 3.0
 autostart = true
 
 [connection signal="timeout" from="TileGameMap/Timer" to="TileGameMap" method="_on_timer_timeout"]
