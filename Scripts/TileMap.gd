@@ -3,6 +3,7 @@ extends TileMap
 @export var curPosition: Vector2i
 
 @onready var tileMap: TileMap = $"."
+@onready var scoreLabel: Label =$"../Camera2D/Score"
 
 enum TILE_TYPES  {GRASS, BUSH, TRESS}
 enum TILE_STATUS {GREEN, BURNING, BURNED, WET}
@@ -28,6 +29,10 @@ func _on_timer_timeout():
 
 	var futureTilesOnFire = []
 	var tilesToErase = []
+	
+	if tilesOnFire.size()==0:
+		$Timer.stop()
+		$Timer.autostart=false
 
 	for t in tilesOnFire:
 		var currentTile: TileData = tileMap.get_cell_tile_data(0, t)
@@ -57,3 +62,4 @@ func _on_timer_timeout():
 	tilesOnFire = tilesOnFire + futureTilesOnFire
 	for e in tilesToErase:
 		tilesOnFire.erase(e)
+		scoreLabel.updateScore(scoreLabel.score+1)
