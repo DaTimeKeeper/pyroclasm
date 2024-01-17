@@ -10,15 +10,12 @@ enum TILE_STATUS {GREEN, BURNING, BURNED, WET}
 var startingFireTile = Vector2i(1,1)
 var tilesOnFire  = [startingFireTile]
 
-func _process(delta):
-	pass
 		
 func doDamage(tilePos: Vector2i):
 	var tile: TileData = tileMap.get_cell_tile_data(0, tilePos)
 	var nextHealth =  tile.get_custom_data("health") - 1
 	var type   = tile.get_custom_data("type")
 	var status = tile.get_custom_data("status")
-	var burnable = tile.get_custom_data("burnable")
 
 	if nextHealth >= 0 && status < 2:
 		if (nextHealth== 0):
