@@ -3,10 +3,11 @@ extends TileMap
 @export var curPosition: Vector2i
 
 @onready var tileMap: TileMap = $"."
-@onready var scoreLabel: Label =$"../Camera2D/Score"
 
 enum TILE_TYPES  {GRASS, BUSH, TRESS}
 enum TILE_STATUS {GREEN, BURNING, BURNED, WET}
+
+signal addScorce(points: int)
 
 var startingFireTile = Vector2i(1,1)
 var tilesOnFire  = [startingFireTile]
@@ -24,15 +25,14 @@ func doDamage(tilePos: Vector2i):
 		else:
 			tileMap.set_cell(0, tilePos, 0, Vector2i(status, type), nextHealth)
 
-
-func _on_timer_timeout():
-
+func _on_update_fire_timer_timeout():
 	var futureTilesOnFire = []
 	var tilesToErase = []
+	var points: int = 0
 	
 	if tilesOnFire.size()==0:
-		$Timer.stop()
-		$Timer.autostart=false
+		$updateFireTimer.stop()
+		$updateFireTimer.autostart=false
 
 	for t in tilesOnFire:
 		var currentTile: TileData = tileMap.get_cell_tile_data(0, t)
@@ -62,4 +62,6 @@ func _on_timer_timeout():
 	tilesOnFire = tilesOnFire + futureTilesOnFire
 	for e in tilesToErase:
 		tilesOnFire.erase(e)
-		scoreLabel.updateScore(scoreLabel.score+1)
+		points += 1 
+
+	addScorce.emit(points)

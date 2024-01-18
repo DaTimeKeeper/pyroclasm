@@ -1,75 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://ck8yrejxvhper"]
+[gd_scene load_steps=4 format=3 uid="uid://ck8yrejxvhper"]
 
 [ext_resource type="PackedScene" uid="uid://578mjdy0o5n6" path="res://Objects/TileGameMap.tscn" id="1_bfg77"]
-[ext_resource type="Script" path="res://GameScenes/TimerLabel.gd" id="1_w1gnr"]
-[ext_resource type="Script" path="res://GameScenes/Score.gd" id="2_fm2qn"]
-
-[sub_resource type="GDScript" id="GDScript_hxuvw"]
-script/source = "extends Camera2D
-
-@export var speed = 400 # How fast the camera will move (pixels/sec).
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-	
-func start(pos):
-	position = pos
-	show()
-	$CollisionShape2D.disabled = false
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	var velocity = Vector2.ZERO # The camera's movement vector.
-	if Input.is_action_pressed(\"move_right\"):
-		velocity.x += 1
-	if Input.is_action_pressed(\"move_left\"):
-		velocity.x -= 1
-	if Input.is_action_pressed(\"move_down\"):
-		velocity.y += 1
-	if Input.is_action_pressed(\"move_up\"):
-		velocity.y -= 1
-
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
-		
-	position += velocity * delta
-
-"
+[ext_resource type="PackedScene" uid="uid://2fl0ntnot72r" path="res://Objects/playerCamera.tscn" id="2_tl8wd"]
+[ext_resource type="PackedScene" uid="uid://d01irkvscnjfy" path="res://Objects/ScoreBoard.tscn" id="4_3tndp"]
 
 [node name="Main" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-z_index = 1
-position = Vector2(198, 114)
-scale = Vector2(0.955142, 0.920061)
-zoom = Vector2(4, 4)
-process_callback = 0
-script = SubResource("GDScript_hxuvw")
-
-[node name="TimerLabel" type="Label" parent="Camera2D"]
-offset_left = -250.225
-offset_top = 123.905
-offset_right = -210.225
-offset_bottom = 146.905
-theme_override_colors/font_color = Color(0.533333, 0.607843, 1, 1)
-text = "0"
-script = ExtResource("1_w1gnr")
-
-[node name="Score" type="Label" parent="Camera2D"]
-offset_left = -251.272
-offset_top = -146.729
-offset_right = -211.272
-offset_bottom = -123.729
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "0"
-script = ExtResource("2_fm2qn")
-
 [node name="TileGameMap" parent="." instance=ExtResource("1_bfg77")]
 
-[node name="Timer" type="Timer" parent="TileGameMap"]
-autostart = true
+[node name="PlayerCamera2" parent="." instance=ExtResource("2_tl8wd")]
+position_smoothing_enabled = false
 
-[connection signal="timeout" from="TileGameMap/Timer" to="Camera2D/TimerLabel" method="_on_timer_timeout"]
-[connection signal="timeout" from="TileGameMap/Timer" to="TileGameMap" method="_on_timer_timeout"]
+[node name="ScoreBoard" parent="PlayerCamera2" instance=ExtResource("4_3tndp")]
+
+[connection signal="addScorce" from="TileGameMap" to="PlayerCamera2/ScoreBoard" method="_on_tile_game_map_add_scorce"]
