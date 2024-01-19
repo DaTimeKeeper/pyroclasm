@@ -8,11 +8,11 @@ enum TILE_TYPES  {GRASS, BUSH, TRESS}
 enum TILE_STATUS {GREEN, BURNING, BURNED, WET}
 
 signal addScorce(points: int)
+signal allFireOut(finalScore: int)
 
 var startingFireTile = Vector2i(1,1)
-var tilesOnFire  = [startingFireTile]
+var tilesOnFire      = [startingFireTile]
 
-		
 func doDamage(tilePos: Vector2i):
 	var tile: TileData = tileMap.get_cell_tile_data(0, tilePos)
 	var nextHealth =  tile.get_custom_data("health") - 1
@@ -28,11 +28,11 @@ func doDamage(tilePos: Vector2i):
 func _on_update_fire_timer_timeout():
 	var futureTilesOnFire = []
 	var tilesToErase = []
-	var points: int = 0
 	
 	if tilesOnFire.size()==0:
 		$updateFireTimer.stop()
 		$updateFireTimer.autostart=false
+		allFireOut.emit(countTiles())
 
 	for t in tilesOnFire:
 		var currentTile: TileData = tileMap.get_cell_tile_data(0, t)
@@ -62,6 +62,15 @@ func _on_update_fire_timer_timeout():
 	tilesOnFire = tilesOnFire + futureTilesOnFire
 	for e in tilesToErase:
 		tilesOnFire.erase(e)
-		points += 1 
+		
+	addScorce.emit(countTiles())
+		 
 
-	addScorce.emit(points)
+func countTiles():
+	var burnTiles: Array[Vector2i] = []
+
+	for x in range(3):
+		burnTiles += tileMap.get_used_cells_by_id(0, 0, Vector2i(2, x)) 
+
+	return burnTiles.size()
+

@@ -4,6 +4,7 @@
 
 [sub_resource type="SystemFont" id="SystemFont_85xu0"]
 font_names = PackedStringArray("Arial")
+subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_qlyqc"]
 font = SubResource("SystemFont_85xu0")
