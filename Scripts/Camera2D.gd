@@ -1,6 +1,6 @@
 extends Camera2D
 
-@export var speed = 400 # How fast the player will move (pixels/sec).
+@export var speed = 600 # How fast the player will move (pixels/sec).
 
 func _ready():
 	pass
