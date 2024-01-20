@@ -10,7 +10,7 @@ enum TILE_STATUS {GREEN, BURNING, BURNED, WET}
 signal addScorce(points: int)
 signal allFireOut(finalScore: int)
 
-var startingFireTile = Vector2i(1,1)
+var startingFireTile = Vector2i(0,0)
 var tilesOnFire      = [startingFireTile]
 
 func doDamage(tilePos: Vector2i):

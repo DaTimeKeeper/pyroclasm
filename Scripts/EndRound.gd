@@ -5,4 +5,4 @@ func _on_new_run_button_pressed():
 
 
 func _on_quit_button_pressed():
-	get_tree().change_scene_to_file("res://GameScenes/Menu.tscn")
+	get_tree().change_scene_to_file("res://GameScenes/MainMenu.tscn")
