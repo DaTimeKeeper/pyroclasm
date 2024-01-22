@@ -19,6 +19,7 @@ offset_top = 64.0
 offset_right = 136.0
 offset_bottom = 87.0
 scale = Vector2(1.6, 1.4)
+text = "0"
 label_settings = SubResource("LabelSettings_qlyqc")
 
 [node name="DebugTimeLable" type="Label" parent="."]

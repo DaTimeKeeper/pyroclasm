@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7yt88bgpchb7"]
+
+[ext_resource type="Script" path="res://Scripts/Pause.gd" id="1_tub11"]
+[ext_resource type="PackedScene" uid="uid://ciospyehcy21n" path="res://GameScenes/Options.tscn" id="2_wbxsp"]
+
+[node name="PauseScreen" type="CanvasLayer"]
+
+[node name="Options" parent="." instance=ExtResource("2_wbxsp")]
+visible = false
+
+[node name="Pasue" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("1_tub11")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pasue"]
+offset_left = 800.0
+offset_top = 416.0
+offset_right = 1024.0
+offset_bottom = 590.0
+
+[node name="NewRunButton" type="Button" parent="Pasue/VBoxContainer"]
+layout_mode = 2
+text = "New Run
+"
+
+[node name="Options" type="Button" parent="Pasue/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="Pasue/VBoxContainer"]
+layout_mode = 2
+text = "End Run"
+
+[connection signal="pressed" from="Pasue/VBoxContainer/NewRunButton" to="Pasue" method="_on_new_run_button_pressed"]
+[connection signal="pressed" from="Pasue/VBoxContainer/Options" to="Pasue" method="_on_options_pressed"]
+[connection signal="pressed" from="Pasue/VBoxContainer/QuitButton" to="Pasue" method="_on_quit_button_pressed"]
