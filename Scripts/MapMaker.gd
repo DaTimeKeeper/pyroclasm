@@ -8,6 +8,7 @@ const MAP_SIZE = Vector2(500, 500)
 func _ready():
 	generate_world()
 	
+	
 func generate_world():
 	var rng = RandomNumberGenerator.new()
 	var x = -30
@@ -19,3 +20,5 @@ func generate_world():
 			tilemap.set_pattern(0, Vector2i(x, y), tileset.get_pattern(rngNumb))
 			y += 5
 		x += 5
+
+

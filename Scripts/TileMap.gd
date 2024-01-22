@@ -5,34 +5,35 @@ extends TileMap
 signal addScorce(points: int)
 signal allFireOut(finalScore: int)
 
-func _onready():
-	setOnfire(Vector2i(0,0)) #set starting tile on fire
-
 func _on_update_fire_timer_timeout():
 
-	var tilesOnFire = getTilesOnFire()
+	var tilesOnFire: Array[Vector2i] = getTilesOnFire()
 
 	for t in tilesOnFire:
-		burnNeigbors(t)
-		doDamage(t)
+		if tileMap.get_cell_tile_data(0, t) != null:
+			burnNeigbors(t)
+			doDamage(t)
+			if tileMap.get_cell_tile_data(0, t).get_custom_data("status") == 2:
+				tileMap.erase_cell(1, t)
 		
 	addScorce.emit(countBurnedTiles()) #update Score
 
 func doDamage(tilePos: Vector2i):
 
 	var tile: TileData = tileMap.get_cell_tile_data(0, tilePos)
-	var nextHealth     =  tile.get_custom_data("health") - 1
+	var nextHealth     = tile.get_custom_data("health") - 1
 	var type           = tile.get_custom_data("type")
 	var status         = tile.get_custom_data("status")
 
-	if status == 1 && !checkOnfire(tilePos):
-		setOnfire(tilePos)
-
-	if nextHealth >= 0 && status < 2:
-		if (nextHealth== 0):
-			tileMap.set_cell(0, tilePos, 0, Vector2i(status+1, type), nextHealth)
+	if status < 2:
+		if (nextHealth <= 0):
+			tileMap.set_cell(0, tilePos, 0, Vector2i(status + 1, type))
+			if status + 1 == 1:
+				setOnfire(tilePos)
 		else:
 			tileMap.set_cell(0, tilePos, 0, Vector2i(status, type), nextHealth)
+
+	
 
 func countBurnedTiles():
 
@@ -45,13 +46,13 @@ func countBurnedTiles():
 
 func getTilesOnFire():
 
-	var tilesburning : Array[Vector2i] = tileMap.get_used_cells_by_id(1,2, Vector2i(0, 0))
+	var tilesburning : Array[Vector2i] = tileMap.get_used_cells_by_id(1, 1, Vector2i(0, 0))
 
 	if !tilesburning:
 		allFireOut.emit(countBurnedTiles())
 		pass
-	else:
-		return tilesburning
+	
+	return tilesburning
 
 func checkOnfire(tilePos: Vector2i):
 
@@ -60,13 +61,9 @@ func checkOnfire(tilePos: Vector2i):
 	else:
 		return false
 
-func checkisBurnable(tilePos: Vector2i):
-
-	return tileMap.get_cell_tile_data(0, tilePos).get_custom_data("burnable")
-
 func setOnfire(tilePos: Vector2i):
 
-	tileMap.set_cell(1, tilePos, 1)
+	tileMap.set_cell(1, tilePos, 1, Vector2i(0, 0))
 
 func burnNeigbors(tilePos: Vector2i):
 
@@ -75,11 +72,10 @@ func burnNeigbors(tilePos: Vector2i):
 	for n in neighbors:
 
 		var neighborTile: TileData = tileMap.get_cell_tile_data(0, n)
-
-		if !neighborTile || !neighborTile.get_custom_data("burnable"):
-			continue
-
-		doDamage(n)
+		if neighborTile != null:
+			doDamage(n)
+				
+		
 
 		
 
