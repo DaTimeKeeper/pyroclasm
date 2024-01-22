@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b5hj7msg7wyai" path="res://ArtAssets/PyroclasmTileSheet_V001.png" id="1_5a63e"]
 [ext_resource type="Script" path="res://Scripts/TileMap.gd" id="1_l7g63"]
-[ext_resource type="Texture2D" uid="uid://csba8bdevdje7" path="res://ArtAssets/DirtTile.png" id="2_wcern"]
+[ext_resource type="Texture2D" uid="uid://0b5wfid2xqyu" path="res://ArtAssets/fire.png" id="2_1ixwr"]
 [ext_resource type="Script" path="res://Scripts/MapMaker.gd" id="4_ypa8m"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_ic6jp"]
@@ -257,12 +257,10 @@ texture_region_size = Vector2i(128, 64)
 2:2/0/custom_data_0 = 2
 2:2/0/custom_data_1 = 2
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pa478"]
-texture = ExtResource("2_wcern")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_niigj"]
+texture = ExtResource("2_1ixwr")
 texture_region_size = Vector2i(128, 64)
 0:0/0 = 0
-0:0/0/custom_data_0 = 2
-0:0/0/custom_data_1 = 3
 
 [sub_resource type="TileSet" id="TileSet_lrfjc"]
 tile_shape = 1
@@ -280,7 +278,7 @@ custom_data_layer_3/type = 1
 custom_data_layer_4/name = "onFire"
 custom_data_layer_4/type = 1
 sources/0 = SubResource("TileSetAtlasSource_rq3c2")
-sources/1 = SubResource("TileSetAtlasSource_pa478")
+sources/1 = SubResource("TileSetAtlasSource_niigj")
 pattern_0 = SubResource("TileMapPattern_ic6jp")
 pattern_1 = SubResource("TileMapPattern_40qii")
 pattern_2 = SubResource("TileMapPattern_07je7")
