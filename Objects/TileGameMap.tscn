@@ -335,7 +335,6 @@ layer_1/tile_data = PackedInt32Array(0, 1, 0)
 script = ExtResource("1_l7g63")
 
 [node name="updateFireTimer" type="Timer" parent="."]
-wait_time = 2.0
 autostart = true
 
 [node name="MapMaker" type="Node2D" parent="."]

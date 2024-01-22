@@ -26,5 +26,5 @@ visible = false
 [node name="EndRound" parent="." instance=ExtResource("6_ia1sg")]
 visible = false
 
-[connection signal="addScorce" from="TileGameMap" to="PlayerCamera2/ScoreBoard" method="_on_tile_game_map_add_scorce"]
 [connection signal="allFireOut" from="TileGameMap" to="." method="_on_tile_game_map_all_fire_out"]
+[connection signal="setScorce" from="TileGameMap" to="PlayerCamera2/ScoreBoard" method="_on_tile_game_map_set_scorce"]
