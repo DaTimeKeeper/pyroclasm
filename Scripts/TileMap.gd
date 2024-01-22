@@ -72,7 +72,7 @@ func burnNeigbors(tilePos: Vector2i):
 	for n in neighbors:
 
 		var neighborTile: TileData = tileMap.get_cell_tile_data(0, n)
-		if neighborTile != null:
+		if neighborTile != null: # TODO: add check if tile is on fire
 			doDamage(n)
 				
 		
