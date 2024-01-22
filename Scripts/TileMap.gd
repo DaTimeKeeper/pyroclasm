@@ -12,7 +12,7 @@ func _on_update_fire_timer_timeout():
 	var futureTilesOnFire = []
 	var tilesToErase = []
 	
-	if tilesOnFire.size()==0: #Check End state
+	if tilesOnFire.size() == 0: #Check End state
 		allFireOut.emit(score)
 
 	for t in tilesOnFire:
@@ -21,25 +21,28 @@ func _on_update_fire_timer_timeout():
 		if !currentTile:
 			continue
 
-		var neighbors : Array[Vector2i] = tileMap.get_surrounding_cells(t)
+		var neighbors: Array[Vector2i] = tileMap.get_surrounding_cells(t)
 
 		for n in neighbors:
 			var neighborTile: TileData = tileMap.get_cell_tile_data(0, n)
-			if !neighborTile || !neighborTile.get_custom_data("burnable")||checkOnFire(n):
+			if !neighborTile || !neighborTile.get_custom_data("burnable") ||checkOnFire(n):
 				continue
 
 			doDamage(n)
 			if checkOnFire(n):
 				futureTilesOnFire.append(n)
 				
+				
 		doDamage(t)
-		if !checkOnFire(t):
+		if checkOnFire(t) && tileMap.get_cell_tile_data(0, t).get_custom_data("status") == 2:
 			tilesToErase.append(t)
+			
 
 	tilesOnFire = tilesOnFire + futureTilesOnFire
 	for e in tilesToErase:
 		tilesOnFire.erase(e)
-		score+=1
+		tileMap.erase_cell(1,e)
+		score += 1
 		
 	setScorce.emit(score)
 
@@ -53,9 +56,9 @@ func doDamage(tilePos: Vector2i):
 	# If waterShield >0 damage that then continue else run below
 
 	if nextHealth >= 0 && status < 2:
-		if (nextHealth<= 0):
+		if (nextHealth <= 0):
 			tileMap.set_cell(0, tilePos, 0, Vector2i(status+1, type))
-			if status+1 == 1 && !checkOnFire(tilePos): 
+			if (status + 1 == 1 || status == 1) && !checkOnFire(tilePos): 
 				setOnfire(tilePos)
 		else:
 			tileMap.set_cell(0, tilePos, 0, Vector2i(status, type), nextHealth)
