@@ -4,10 +4,23 @@ extends TileMap
 
 signal setScorce(points: int)
 signal allFireOut(finalScore: int)
+
+const north:     Vector2i = Vector2i(-1,-1)
+const northWest: Vector2i = Vector2i(0,-1)
+const west:      Vector2i = Vector2i(1,-1)
+const southWest: Vector2i = Vector2i(1,0)
+const south:     Vector2i = Vector2i(1,1)
+const southEast: Vector2i = Vector2i(0,1)
+const east:      Vector2i = Vector2i(-1,1)
+const northEast: Vector2i = Vector2i(-1,0)
+const dir:       Array[Vector2i] = [north,south,west,east,southWest,southEast,northWest,northEast]
+
+var windDir: Vector2i = north
+
 var startingFireTile = Vector2i(0,0)
 var tilesOnFire      = [startingFireTile]
 var score = 0
-var windDir: Vector2i = Vector2i(0,0)
+
 
 func _on_update_fire_timer_timeout():
 	var futureTilesOnFire = []
@@ -22,25 +35,18 @@ func _on_update_fire_timer_timeout():
 		if !currentTile:
 			continue
 
-		var neighbors: Array[Vector2i] = getAllAround(t)
+		var neighbors: Array[Vector2i] = getTileInWind(t)
+		var isFirst: bool = true
 
 		for n in neighbors:
 			var neighborTile: TileData = tileMap.get_cell_tile_data(0, n)
 
 			if !neighborTile || !neighborTile.get_custom_data("burnable") ||checkOnFire(n):
 				continue
-
-
-			if t + windDir == n:
+			if isFirst == true:
 				doDamage(n)
-				doDamage(n)
-				#doDamage(n)
-			elif t + Vector2i(windDir.x, 0) == n || t + Vector2i(0, windDir.y) == n:
-				doDamage(n)
-				#doDamage(n)
-			#elif (t + Vector2i(windDir.x, 0)) - Vector2i(0, windDir.y) == n || (t + Vector2i(0, windDir.y)) - Vector2i(windDir.x, 0) == n:
-				#doDamage(n)
-
+				isFirst = false
+			doDamage(n)
 			if checkOnFire(n):
 				futureTilesOnFire.append(n)
 
@@ -91,11 +97,39 @@ func setOnfire(tilePos: Vector2i):
 
 func getAllAround(tilePos: Vector2i):
 	var listTiles: Array[Vector2i] = []
-	var dir: Array[Vector2i] = [Vector2i(0,1),  Vector2i(0,-1),
-								Vector2i(1,0),  Vector2i(-1, 0),
-								Vector2i(1,1),  Vector2i(-1,-1),
-								Vector2i(-1,1), Vector2i(1,-1)]
+
 	for i in dir:
 		listTiles.append(tilePos + i)
 
 	return listTiles
+
+#north,south,west,east,southWest,southEast,northWest,northEast
+func getTileInWind(tilePos: Vector2i):
+	var dirList: Array[Vector2i] = []
+	var listTiles: Array[Vector2i] = []
+
+	if windDir == north:
+		dirList = [north, northWest, northEast]
+	if windDir == south:
+		dirList = [south, southWest, southEast]
+	if windDir == west:
+		dirList = [west, southWest,  northWest]
+	if windDir == east:
+		dirList = [east, southEast, northEast]
+	if windDir == southWest:
+		dirList = [southWest, west, south]
+	if windDir == southEast:
+		dirList = [southEast, east, south]
+	if windDir == northWest:
+		dirList = [northWest, west, north]
+	if windDir == northEast:
+		dirList = [northEast, east, north]
+
+	for x in dirList:
+		listTiles.append( x + tilePos)
+
+	return listTiles
+
+
+
+

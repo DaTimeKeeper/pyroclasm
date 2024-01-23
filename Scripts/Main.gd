@@ -16,19 +16,43 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("pause") && !gameOver:
 		setPause()
+
 	if Input.is_action_just_pressed("wind_north"):
 		$"PlayerCamera2/wind/Arrow".rotation_degrees = 0
 		$"PlayerCamera2/wind/WindText".text = "N"
 		$"TileGameMap".windDir = Vector2i(-1,-1)
-	if Input.is_action_just_pressed("wind_west"):
+
+	if Input.is_action_just_released("wind_north") && Input.is_action_just_released("wind_west"):
+		$"PlayerCamera2/wind/Arrow".rotation_degrees = 45
+		$"PlayerCamera2/wind/WindText".text = "NW"
+		$"TileGameMap".windDir = Vector2i(0,-1)
+
+	if Input.is_action_just_released("wind_north") && Input.is_action_just_released("wind_east"):
+		$"PlayerCamera2/wind/Arrow".rotation_degrees = -45
+		$"PlayerCamera2/wind/WindText".text = "NE"
+		$"TileGameMap".windDir = Vector2i(-1,0)
+
+	if Input.is_action_pressed("wind_west"):
 		$"PlayerCamera2/wind/Arrow".rotation_degrees = 90
 		$"PlayerCamera2/wind/WindText".text = "W"
 		$"TileGameMap".windDir = Vector2i(1,-1)
-	if Input.is_action_just_pressed("wind_south"):
+
+	if Input.is_action_pressed("wind_south"):
 		$"PlayerCamera2/wind/Arrow".rotation_degrees = 180
 		$"PlayerCamera2/wind/WindText".text = "S"
 		$"TileGameMap".windDir = Vector2i(1, 1)
-	if Input.is_action_just_pressed("wind_east"):
+
+	if Input.is_action_just_released("wind_south") && Input.is_action_just_released("wind_west"):
+		$"PlayerCamera2/wind/Arrow".rotation_degrees = 135
+		$"PlayerCamera2/wind/WindText".text = "SW"
+		$"TileGameMap".windDir = Vector2i(1,0)
+
+	if Input.is_action_just_released("wind_south") && Input.is_action_just_released("wind_east"):
+		$"PlayerCamera2/wind/Arrow".rotation_degrees = -135
+		$"PlayerCamera2/wind/WindText".text = "SE"
+		$"TileGameMap".windDir = Vector2i(0,1)
+
+	if Input.is_action_pressed("wind_east"):
 		$"PlayerCamera2/wind/Arrow".rotation_degrees = -90
 		$"PlayerCamera2/wind/WindText".text = "E"
 		$"TileGameMap".windDir = Vector2i(-1,1)
