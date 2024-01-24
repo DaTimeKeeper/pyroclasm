@@ -5,17 +5,16 @@ extends TileMap
 signal setScorce(points: int)
 signal allFireOut(finalScore: int)
 
-const north:     Vector2i = Vector2i(-1,-1)
-const northWest: Vector2i = Vector2i(0,-1)
-const west:      Vector2i = Vector2i(1,-1)
-const southWest: Vector2i = Vector2i(1,0)
-const south:     Vector2i = Vector2i(1,1)
-const southEast: Vector2i = Vector2i(0,1)
-const east:      Vector2i = Vector2i(-1,1)
-const northEast: Vector2i = Vector2i(-1,0)
-const dir:       Array[Vector2i] = [north,south,west,east,southWest,southEast,northWest,northEast]
+const wind = {"north":     Vector2i(-1,-1),
+			  "northWest": Vector2i(0,-1),
+			  "west":      Vector2i(1,-1),
+			  "southWest": Vector2i(1,0),
+			  "south":     Vector2i(1,1),
+			  "southEast": Vector2i(0,1),
+			  "east":      Vector2i(-1,1),
+			  "northEast": Vector2i(-1,0)}
 
-var windDir: Vector2i = north
+var windDir: Vector2i = wind["north"]
 
 var startingFireTile = Vector2i(0,0)
 var tilesOnFire      = [startingFireTile]
@@ -92,38 +91,29 @@ func checkOnFire(tilePos: Vector2i):
 		return false
 
 func setOnfire(tilePos: Vector2i):
-
 	tileMap.set_cell(1, tilePos, 1, Vector2i(0, 0))
 
-func getAllAround(tilePos: Vector2i):
-	var listTiles: Array[Vector2i] = []
-
-	for i in dir:
-		listTiles.append(tilePos + i)
-
-	return listTiles
-
-#north,south,west,east,southWest,southEast,northWest,northEast
 func getTileInWind(tilePos: Vector2i):
 	var dirList: Array[Vector2i] = []
 	var listTiles: Array[Vector2i] = []
 
-	if windDir == north:
-		dirList = [north, northWest, northEast]
-	if windDir == south:
-		dirList = [south, southWest, southEast]
-	if windDir == west:
-		dirList = [west, southWest,  northWest]
-	if windDir == east:
-		dirList = [east, southEast, northEast]
-	if windDir == southWest:
-		dirList = [southWest, west, south]
-	if windDir == southEast:
-		dirList = [southEast, east, south]
-	if windDir == northWest:
-		dirList = [northWest, west, north]
-	if windDir == northEast:
-		dirList = [northEast, east, north]
+	match windDir:
+		wind["north"]:
+			dirList = [wind["north"], wind["northWest"], wind["northEast"]]
+		wind["south"]:
+			dirList = [wind["south"], wind["southWest"], wind["southEast"]]
+		wind["west"]:
+			dirList = [wind["west"], wind["southWest"],  wind["northWest"]]
+		wind["east"]:
+			dirList = [wind["east"], wind["southEast"], wind["northEast"]]
+		wind["southWest"]:
+			dirList = [wind["southWest"], wind["west"], wind["south"]]
+		wind["southEast"]:
+			dirList = [wind["southEast"], wind["east"], wind["south"]]
+		wind["northWest"]:
+			dirList = [wind["northWest"], wind["west"], wind["north"]]
+		wind["northEast"]:
+			dirList = [wind["northEast"], wind["east"], wind["north"]]
 
 	for x in dirList:
 		listTiles.append( x + tilePos)
