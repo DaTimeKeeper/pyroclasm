@@ -1,5 +1,14 @@
 extends Node2D
 
+const wind = {"north":     {"dir":Vector2i(-1,-1),"rota": 0,   "text":"N"  },
+			  "northwest": {"dir":Vector2i(0,-1), "rota":45,   "text":"NW" },
+			  "west":      {"dir":Vector2i(1,-1), "rota":90,   "text":"W"  },
+			  "southwest": {"dir":Vector2i(1,0),  "rota":135,  "text":"SW" },
+			  "south":     {"dir":Vector2i(1,1),  "rota":180,  "text":"S"  },
+			  "southeast": {"dir":Vector2i(0,1),  "rota":-135, "text":"SE" },
+			  "east":      {"dir":Vector2i(-1,1), "rota":-90,  "text":"E"  },
+			  "northeast": {"dir":Vector2i(-1,0), "rota":-45,  "text":"NE" }}
+
 @onready var pause_menu = $"Pause"
 @onready var end = $"EndRound"
 @onready var scoreboard = $"EndRound/VBoxContainer/FinalScoreTotalLable"
@@ -11,52 +20,28 @@ var paused = false
 func _ready():
 	Engine.time_scale = 1
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+
+	var newDir = ""
+
 	if Input.is_action_just_pressed("pause") && !gameOver:
 		setPause()
 
-	if Input.is_action_just_pressed("wind_north"):
-		$"PlayerCamera2/wind/Arrow".rotation_degrees = 0
-		$"PlayerCamera2/wind/WindText".text = "N"
-		$"TileGameMap".windDir = Vector2i(-1,-1)
-
-	if Input.is_action_just_released("wind_north") && Input.is_action_just_released("wind_west"):
-		$"PlayerCamera2/wind/Arrow".rotation_degrees = 45
-		$"PlayerCamera2/wind/WindText".text = "NW"
-		$"TileGameMap".windDir = Vector2i(0,-1)
-
-	if Input.is_action_just_released("wind_north") && Input.is_action_just_released("wind_east"):
-		$"PlayerCamera2/wind/Arrow".rotation_degrees = -45
-		$"PlayerCamera2/wind/WindText".text = "NE"
-		$"TileGameMap".windDir = Vector2i(-1,0)
+	if Input.is_action_pressed("wind_north"):
+		newDir = "north"
+	elif Input.is_action_pressed("wind_south"):
+		newDir = "south"
 
 	if Input.is_action_pressed("wind_west"):
-		$"PlayerCamera2/wind/Arrow".rotation_degrees = 90
-		$"PlayerCamera2/wind/WindText".text = "W"
-		$"TileGameMap".windDir = Vector2i(1,-1)
+		newDir += "west"
+	elif Input.is_action_pressed("wind_east"):
+		newDir += "east"
 
-	if Input.is_action_pressed("wind_south"):
-		$"PlayerCamera2/wind/Arrow".rotation_degrees = 180
-		$"PlayerCamera2/wind/WindText".text = "S"
-		$"TileGameMap".windDir = Vector2i(1, 1)
-
-	if Input.is_action_just_released("wind_south") && Input.is_action_just_released("wind_west"):
-		$"PlayerCamera2/wind/Arrow".rotation_degrees = 135
-		$"PlayerCamera2/wind/WindText".text = "SW"
-		$"TileGameMap".windDir = Vector2i(1,0)
-
-	if Input.is_action_just_released("wind_south") && Input.is_action_just_released("wind_east"):
-		$"PlayerCamera2/wind/Arrow".rotation_degrees = -135
-		$"PlayerCamera2/wind/WindText".text = "SE"
-		$"TileGameMap".windDir = Vector2i(0,1)
-
-	if Input.is_action_pressed("wind_east"):
-		$"PlayerCamera2/wind/Arrow".rotation_degrees = -90
-		$"PlayerCamera2/wind/WindText".text = "E"
-		$"TileGameMap".windDir = Vector2i(-1,1)
-
+	if newDir != "":
+			$"PlayerCamera2/wind/Arrow".rotation_degrees = wind[newDir].get("rota")
+			$"PlayerCamera2/wind/WindText".text = wind[newDir].get("text")
+			$"TileGameMap".windDir = wind[newDir].get("dir")
 
 
 func setPause():
@@ -66,7 +51,6 @@ func setPause():
 	else:
 		pause_menu.show()
 		Engine.time_scale = 0
-
 	paused = !paused
 
 
