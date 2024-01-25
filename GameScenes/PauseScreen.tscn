@@ -1,12 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b7yt88bgpchb7"]
+[gd_scene load_steps=2 format=3 uid="uid://b7yt88bgpchb7"]
 
 [ext_resource type="Script" path="res://Scripts/Pause.gd" id="1_tub11"]
-[ext_resource type="PackedScene" uid="uid://ciospyehcy21n" path="res://GameScenes/Options.tscn" id="2_wbxsp"]
 
 [node name="PauseScreen" type="CanvasLayer"]
-
-[node name="Options" parent="." instance=ExtResource("2_wbxsp")]
-visible = false
 
 [node name="Pasue" type="CanvasLayer" parent="."]
 visible = false

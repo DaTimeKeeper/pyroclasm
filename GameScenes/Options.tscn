@@ -1,21 +1,51 @@
-[gd_scene load_steps=2 format=3 uid="uid://ciospyehcy21n"]
+[gd_scene load_steps=4 format=3 uid="uid://ciospyehcy21n"]
 
 [ext_resource type="Script" path="res://Scripts/Options.gd" id="1_nhfng"]
 
+[sub_resource type="Gradient" id="Gradient_plvc6"]
+offsets = PackedFloat32Array(0.261818, 1)
+colors = PackedColorArray(0, 0.191761, 2.40654e-08, 1, 0.111197, 0.111197, 0.111197, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0p3sw"]
+gradient = SubResource("Gradient_plvc6")
+
 [node name="Options" type="CanvasLayer"]
 script = ExtResource("1_nhfng")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(959.515, 539.762)
+rotation = 1.57079
+scale = Vector2(4.21691, 1919.53)
+texture = SubResource("GradientTexture1D_0p3sw")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 32.0
-offset_top = 960.0
-offset_right = -1568.0
-offset_bottom = -25.0
+offset_left = 704.0
+offset_top = 864.0
+offset_right = -800.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="MainMenu" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Return"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+offset_left = 768.0
+offset_top = 448.0
+offset_right = 862.0
+offset_bottom = 498.0
+scale = Vector2(2.75231, 2.75231)
+
+[node name="Label" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+text = "Screen"
+
+[node name="Label2" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+text = "Move Speed"
 
 [connection signal="pressed" from="VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
