@@ -4,6 +4,7 @@ extends TileMap
 
 signal setScorce(points: int)
 signal allFireOut(finalScore: int)
+signal fireUpdated()
 
 const wind = {"north":     Vector2i(-1,-1),
 			  "northWest": Vector2i(0,-1),
@@ -62,6 +63,7 @@ func _on_update_fire_timer_timeout():
 		score += 1
 
 	setScorce.emit(score)
+	fireUpdated.emit()
 
 func doDamage(tilePos: Vector2i):
 	var tile: TileData = tileMap.get_cell_tile_data(0, tilePos)
@@ -119,6 +121,17 @@ func getTileInWind(tilePos: Vector2i):
 		listTiles.append( x + tilePos)
 
 	return listTiles
+	
+	
+func getNearestFire(currentPosition: Vector2):
+	var nearestFire: Vector2 = tileMap.map_to_local(tilesOnFire[0])
+	var nearestDistance = currentPosition.distance_to(nearestFire)
+	for t in tilesOnFire:
+		var newDistance=currentPosition.distance_to(tileMap.map_to_local(t))
+		if nearestDistance>newDistance:
+			nearestFire=t
+			nearestDistance=newDistance
+	return nearestFire
 
 
 
