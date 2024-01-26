@@ -15,11 +15,11 @@ func _process(delta):
 		animation.play("Idle")
 	else:
 		var angle=velocity.normalized().dot(Vector2.RIGHT)*90
-		if angle < 45 &&  angle  > -45 && velocity.normalized().y>0:
+		if angle <= 45 &&  angle  >= -45 && velocity.normalized().y>0:
 			animation.play("Run_At_Camera")
 		elif angle  > 45:
 			animation.play("Run_Right")
-		elif angle < 45 &&  angle  > -45 && velocity.normalized().y<0:
+		elif angle <= 45 &&  angle  >= -45 && velocity.normalized().y<0:
 			animation.play("Run_Away")
 		else:
 			animation.play("Run_Left")
