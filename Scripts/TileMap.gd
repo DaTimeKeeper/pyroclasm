@@ -125,11 +125,11 @@ func getTileInWind(tilePos: Vector2i):
 	
 func getNearestFire(currentPosition: Vector2):
 	var nearestFire: Vector2 = tileMap.map_to_local(tilesOnFire[0])
-	var nearestDistance = currentPosition.distance_to(nearestFire)
+	var nearestDistance = currentPosition.distance_squared_to(nearestFire)
 	for t in tilesOnFire:
-		var newDistance=currentPosition.distance_to(tileMap.map_to_local(t))
+		var newDistance=currentPosition.distance_squared_to(tileMap.map_to_local(t))
 		if nearestDistance>newDistance:
-			nearestFire=t
+			nearestFire=tileMap.map_to_local(t)
 			nearestDistance=newDistance
 	return nearestFire
 
