@@ -20,6 +20,8 @@ var startingFireTile = Vector2i(0,0)
 var tilesOnFire      = [startingFireTile]
 var score = 0
 
+func _ready():
+	setOnfire(startingFireTile)
 
 func _on_update_fire_timer_timeout():
 	var futureTilesOnFire = []
@@ -91,7 +93,7 @@ func checkOnFire(tilePos: Vector2i):
 		return false
 
 func setOnfire(tilePos: Vector2i):
-	tileMap.set_cell(1, tilePos, 1, Vector2i(0, 0))
+	tileMap.set_cell(1, tilePos, 1, Vector2i(0, tileMap.get_cell_tile_data(0, tilePos).get_custom_data("type")))
 
 func getTileInWind(tilePos: Vector2i):
 	var dirList: Array[Vector2i] = []
