@@ -121,7 +121,7 @@ func getTileInWind(tilePos: Vector2i):
 		listTiles.append( x + tilePos)
 
 	return listTiles
-	
+
 func eraseFire(tilePosition:Vector2i):
 	tilesOnFire.erase(tilePosition)
 	tileMap.erase_cell(1,tilePosition)
@@ -129,8 +129,8 @@ func eraseFire(tilePosition:Vector2i):
 		allFireOut.emit(score)
 		Engine.time_scale = 0
 		return
-	
-	
+
+
 func getNearestFire(currentPosition: Vector2):
 	if tilesOnFire.size() == 0: #Check End state
 		allFireOut.emit(score)
