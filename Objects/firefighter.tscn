@@ -176,6 +176,7 @@ size = Vector2(19, 28)
 
 [node name="firefighter" type="CharacterBody2D"]
 position = Vector2(300, 146)
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_j1j3s")
 
 [node name="fredArt" type="AnimatedSprite2D" parent="."]
