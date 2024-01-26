@@ -99,7 +99,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_6aigm")
 }],
 "loop": true,
-"name": &"Idel",
+"name": &"Idle",
 "speed": 5.0
 }, {
 "frames": [{
@@ -183,7 +183,7 @@ script = ExtResource("1_j1j3s")
 position = Vector2(-1, 1)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_4erg0")
-animation = &"Idel"
+animation = &"Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 light_mask = 3

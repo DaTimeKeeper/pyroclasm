@@ -12,18 +12,17 @@ var currentTile = Vector2i(0,0)
 
 func _process(delta):
 	if velocity.is_zero_approx():
-		animation.play("Idel")
+		animation.play("Idle")
 	else:
-		if velocity.abs().normalized().ceil().x >= velocity.abs().normalized().ceil().y:
-			if velocity.normalized().ceil().x >= 0:
-				animation.play("Run_At_Camera")
-			else:
-				animation.play("Run_Away")
+		var angle=velocity.normalized().dot(Vector2.RIGHT)*90
+		if angle < 45 &&  angle  > -45 && velocity.normalized().y>0:
+			animation.play("Run_At_Camera")
+		elif angle  > 45:
+			animation.play("Run_Right")
+		elif angle < 45 &&  angle  > -45 && velocity.normalized().y<0:
+			animation.play("Run_Away")
 		else:
-			if velocity.normalized().ceil().y >= 0:
-				animation.play("Run_Right")
-			else:
-				animation.play("Run_Left")
+			animation.play("Run_Left")
 
 
 func _physics_process(delta: float):
@@ -31,7 +30,7 @@ func _physics_process(delta: float):
 		return
 	velocity = position.direction_to(target).normalized() * SPEED
 	currentTile=tileMap.local_to_map(global_position)
-	$DebugLabel.set_text("Target: (%s,%s)\nCurrent: (%s,%s)\nAbs.x: %s\nAbs.y: %s\nv.x: %s\nv.y: %s" % [currentTile.x,currentTile.y,targetTile.x,targetTile.y,velocity.abs().normalized().ceil().x,velocity.abs().normalized().ceil().y,velocity.normalized().ceil().x,velocity.normalized().ceil().y])
+	$DebugLabel.set_text("Target: (%s,%s)\nCurrent: (%s,%s)\nVelocity: (%s, %s)\n" % [currentTile.x,currentTile.y,targetTile.x,targetTile.y,velocity.x,velocity.y])
 	#look_at(target)
 	if position.distance_to(target) > 20:
 		move_and_slide()
