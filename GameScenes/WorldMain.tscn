@@ -49,5 +49,4 @@ position = Vector2(592, 330)
 scale = Vector2(0.5, 0.5)
 
 [connection signal="allFireOut" from="TileGameMap" to="." method="_on_tile_game_map_all_fire_out"]
-[connection signal="fireUpdated" from="TileGameMap" to="firefighter" method="_on_tile_game_map_fire_updated"]
 [connection signal="setScorce" from="TileGameMap" to="PlayerCamera2/ScoreBoard" method="_on_tile_game_map_set_scorce"]

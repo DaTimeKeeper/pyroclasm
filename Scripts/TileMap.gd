@@ -4,7 +4,6 @@ extends TileMap
 
 signal setScorce(points: int)
 signal allFireOut(finalScore: int)
-signal fireUpdated()
 
 const wind = {"north":     Vector2i(-1,-1),
 			  "northWest": Vector2i(0,-1),
@@ -63,7 +62,6 @@ func _on_update_fire_timer_timeout():
 		score += 1
 
 	setScorce.emit(score)
-	fireUpdated.emit()
 
 func doDamage(tilePos: Vector2i):
 	var tile: TileData = tileMap.get_cell_tile_data(0, tilePos)

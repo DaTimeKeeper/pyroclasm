@@ -26,6 +26,6 @@ func makePath():
 	
 
 
-func _on_tile_game_map_fire_updated():
+
+func _on_update_timer_timeout():
 	makePath()
-	

@@ -27,3 +27,9 @@ offset_right = 57.0
 offset_bottom = 119.0
 text = "Target: 0,0
 CurrentL 0,0"
+
+[node name="UpdateTimer" type="Timer" parent="."]
+wait_time = 0.061
+autostart = true
+
+[connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]
