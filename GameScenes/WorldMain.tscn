@@ -7,7 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://bihij5mkjrxn5" path="res://GameScenes/Pause.tscn" id="5_hot31"]
 [ext_resource type="Texture2D" path="res://ArtAssets/arrow.png" id="5_o7hrm"]
 [ext_resource type="PackedScene" uid="uid://bydvgtt4arge" path="res://GameScenes/EndRound.tscn" id="6_ia1sg"]
-[ext_resource type="PackedScene" uid="uid://ge1gwt2vl8qn" path="res://Objects/firefighter.tscn" id="8_01atw"]
+
+[sub_resource type="Curve2D" id="Curve2D_kkykr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1535, -111, 0, 0, 0, 0, 1534, 876, 0, 0, 0, 0, -153, 865, 0, 0, 0, 0, -146, -112, 0, 0, 0, 0, 1535, -109, 0, 0, 0, 0, 1535, -111)
+}
+point_count = 6
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_nwhy3")
@@ -35,6 +40,14 @@ text = "N"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Path2D" type="Path2D" parent="PlayerCamera2"]
+curve = SubResource("Curve2D_kkykr")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="PlayerCamera2/Path2D"]
+unique_name_in_owner = true
+position = Vector2(1535, -111)
+rotation = 1.57181
+
 [node name="TileGameMap" parent="." instance=ExtResource("2_gl74d")]
 position = Vector2(-64, -32)
 
@@ -44,9 +57,9 @@ visible = false
 [node name="EndRound" parent="." instance=ExtResource("6_ia1sg")]
 visible = false
 
-[node name="firefighter" parent="." instance=ExtResource("8_01atw")]
-position = Vector2(592, 330)
-scale = Vector2(0.5, 0.5)
+[node name="FredSpawnerTimer" type="Timer" parent="."]
+autostart = true
 
 [connection signal="allFireOut" from="TileGameMap" to="." method="_on_tile_game_map_all_fire_out"]
 [connection signal="setScorce" from="TileGameMap" to="PlayerCamera2/ScoreBoard" method="_on_tile_game_map_set_scorce"]
+[connection signal="timeout" from="FredSpawnerTimer" to="." method="_on_fred_spawner_timer_timeout"]

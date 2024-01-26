@@ -59,3 +59,14 @@ func _on_tile_game_map_all_fire_out(finalScore):
 	scoreboard.text = str(finalScore)
 	end.show()
 	Engine.time_scale = 0
+	
+	
+func spawn_fred():
+	var new_mob=preload("res://Objects/firefighter.tscn").instantiate()
+	%PathFollow2D.progress_ratio = randf()
+	new_mob.global_position = %PathFollow2D.global_position
+	add_child(new_mob)
+
+
+func _on_fred_spawner_timer_timeout():
+	spawn_fred()
