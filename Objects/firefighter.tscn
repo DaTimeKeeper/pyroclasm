@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://ge1gwt2vl8qn"]
+
+[ext_resource type="Script" path="res://Scripts/firefighter.gd" id="1_j1j3s"]
+[ext_resource type="Texture2D" uid="uid://iwntc3adi8kx" path="res://ArtAssets/icon.svg" id="1_r2ny6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x3m8y"]
+radius = 61.0082
+
+[node name="firefighter" type="CharacterBody2D"]
+position = Vector2(300, 146)
+script = ExtResource("1_j1j3s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, 1)
+texture = ExtResource("1_r2ny6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 3
+visibility_layer = 2
+position = Vector2(4, -1)
+shape = SubResource("CircleShape2D_x3m8y")
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -39.0
+offset_top = 70.0
+offset_right = 57.0
+offset_bottom = 119.0
+text = "Target: 0,0
+CurrentL 0,0"
+
+[node name="UpdateTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]
