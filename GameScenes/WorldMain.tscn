@@ -13,8 +13,8 @@
 script = ExtResource("1_nwhy3")
 
 [node name="PlayerCamera2" parent="." instance=ExtResource("3_lwgnc")]
-position = Vector2(-768, -416)
-zoom = Vector2(1.25, 1.25)
+position = Vector2(-672, -384)
+zoom = Vector2(1.4, 1.4)
 position_smoothing_enabled = false
 
 [node name="ScoreBoard" parent="PlayerCamera2" instance=ExtResource("4_quj51")]
