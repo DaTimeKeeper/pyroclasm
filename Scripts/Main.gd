@@ -1,13 +1,13 @@
 extends Node2D
 
 const wind = {"north":     {"dir":Vector2i(-1,-1),"rota": 0,   "text":"N"  },
-			  "northwest": {"dir":Vector2i(0,-1), "rota":45,   "text":"NW" },
-			  "west":      {"dir":Vector2i(1,-1), "rota":90,   "text":"W"  },
-			  "southwest": {"dir":Vector2i(1,0),  "rota":135,  "text":"SW" },
+			  "northeast": {"dir":Vector2i(0,-1), "rota":45,   "text":"NE" },
+			  "east":      {"dir":Vector2i(1,-1), "rota":90,   "text":"E"  },
+			  "southeast": {"dir":Vector2i(1,0),  "rota":135,  "text":"SE" },
 			  "south":     {"dir":Vector2i(1,1),  "rota":180,  "text":"S"  },
-			  "southeast": {"dir":Vector2i(0,1),  "rota":-135, "text":"SE" },
-			  "east":      {"dir":Vector2i(-1,1), "rota":-90,  "text":"E"  },
-			  "northeast": {"dir":Vector2i(-1,0), "rota":-45,  "text":"NE" }}
+			  "southwest": {"dir":Vector2i(0,1),  "rota":-135, "text":"SW" },
+			  "west":      {"dir":Vector2i(-1,1), "rota":-90,  "text":"W"  },
+			  "northwest": {"dir":Vector2i(-1,0), "rota":-45,  "text":"NW" }}
 
 @onready var pause_menu = $"Pause"
 @onready var end = $"EndRound"
@@ -28,14 +28,14 @@ func _process(delta):
 	if Input.is_action_just_pressed("pause") && !gameOver:
 		setPause()
 
-	if Input.is_action_pressed("wind_north"):
+	if Input.is_action_pressed("wind_north") && !Input.is_action_pressed("wind_south"):
 		newDir = "north"
-	elif Input.is_action_pressed("wind_south"):
+	elif Input.is_action_pressed("wind_south")  && !Input.is_action_pressed("wind_north"):
 		newDir = "south"
 
-	if Input.is_action_pressed("wind_west"):
+	if Input.is_action_pressed("wind_west")  && !Input.is_action_pressed("wind_east"):
 		newDir += "west"
-	elif Input.is_action_pressed("wind_east"):
+	elif Input.is_action_pressed("wind_east") && !Input.is_action_pressed("wind_west"):
 		newDir += "east"
 
 	if newDir != "":

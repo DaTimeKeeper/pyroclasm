@@ -121,6 +121,29 @@ func getTileInWind(tilePos: Vector2i):
 		listTiles.append( x + tilePos)
 
 	return listTiles
+	
+func eraseFire(tilePosition:Vector2i):
+	tilesOnFire.erase(tilePosition)
+	tileMap.erase_cell(1,tilePosition)
+	if tilesOnFire.size() == 0: #Check End state
+		allFireOut.emit(score)
+		Engine.time_scale = 0
+		return
+	
+	
+func getNearestFire(currentPosition: Vector2):
+	if tilesOnFire.size() == 0: #Check End state
+		allFireOut.emit(score)
+		Engine.time_scale = 0
+		return
+	var nearestFire: Vector2 = tileMap.map_to_local(tilesOnFire[0])
+	var nearestDistance = currentPosition.distance_squared_to(nearestFire)
+	for t in tilesOnFire:
+		var newDistance=currentPosition.distance_squared_to(tileMap.map_to_local(t))
+		if nearestDistance>newDistance:
+			nearestFire=tileMap.map_to_local(t)
+			nearestDistance=newDistance
+	return nearestFire
 
 
 
