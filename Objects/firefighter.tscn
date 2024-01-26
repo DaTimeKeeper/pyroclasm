@@ -29,7 +29,7 @@ text = "Target: 0,0
 CurrentL 0,0"
 
 [node name="UpdateTimer" type="Timer" parent="."]
-wait_time = 0.061
+wait_time = 0.5
 autostart = true
 
 [connection signal="timeout" from="UpdateTimer" to="." method="_on_update_timer_timeout"]
