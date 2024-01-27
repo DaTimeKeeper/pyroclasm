@@ -46,13 +46,13 @@ func _process(delta):
 
 
 func setPause():
-	if paused:
+	if pause_menu.visible:
 		pause_menu.hide()
 		Engine.time_scale = 1
 	else:
 		pause_menu.show()
 		Engine.time_scale = 0
-	paused = !paused
+
 
 
 func _on_tile_game_map_all_fire_out(finalScore):
@@ -64,8 +64,8 @@ func _on_tile_game_map_all_fire_out(finalScore):
 	highscore.text = str(Global.save_data.high_score)
 	end.show()
 	Engine.time_scale = 0
-	
-	
+
+
 func spawn_fred():
 	var new_mob=preload("res://Objects/firefighter.tscn").instantiate()
 	%PathFollow2D.progress_ratio = randf()

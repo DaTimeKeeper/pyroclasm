@@ -3,16 +3,19 @@
 [ext_resource type="Script" path="res://Scripts/Pause.gd" id="1_tub11"]
 
 [node name="PauseScreen" type="CanvasLayer"]
+metadata/_edit_vertical_guides_ = [960.0]
+metadata/_edit_horizontal_guides_ = [540.0]
 
 [node name="Pasue" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("1_tub11")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Pasue"]
-offset_left = 800.0
-offset_top = 416.0
-offset_right = 1024.0
-offset_bottom = 590.0
+offset_left = 848.0
+offset_top = 472.0
+offset_right = 1072.0
+offset_bottom = 576.0
+scale = Vector2(2.2464, 2.2464)
+pivot_offset = Vector2(112, 68)
 
 [node name="NewRunButton" type="Button" parent="Pasue/VBoxContainer"]
 layout_mode = 2

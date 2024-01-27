@@ -1,18 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://bjpwyoevi7fy"]
+[gd_scene load_steps=4 format=3 uid="uid://bjpwyoevi7fy"]
 
 [ext_resource type="Script" path="res://Scripts/Menu.gd" id="1_5ga42"]
+[ext_resource type="Texture2D" uid="uid://ddatv6r8njbmx" path="res://ArtAssets/PyroTitle.png" id="2_i407i"]
+[ext_resource type="Texture2D" uid="uid://cbl5y21otvqkj" path="res://ArtAssets/JamSmalltrans.png" id="3_n0a7y"]
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("1_5ga42")
+metadata/_edit_vertical_guides_ = [960.0]
+metadata/_edit_horizontal_guides_ = [540.0]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(962, 1081)
+scale = Vector2(5.3742, 5.3742)
+texture = ExtResource("2_i407i")
+offset = Vector2(0, -101)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.007
-offset_left = 832.0
-offset_top = 512.0
-offset_right = -896.0
-offset_bottom = -447.56
+offset_left = 913.0
+offset_top = 623.0
+offset_right = -911.0
+offset_bottom = -398.56
+scale = Vector2(3.52739, 3.52739)
+pivot_offset = Vector2(48, 33)
 alignment = 1
 
 [node name="StartButton" type="Button" parent="VBoxContainer"]
@@ -20,15 +32,15 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../QuitButton")
 text = "Start Game"
 
-[node name="OptionsButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Options"
-
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../StartButton")
 text = "Quit Game"
 
+[node name="GameJamLogo" type="Sprite2D" parent="."]
+position = Vector2(1770, 931)
+scale = Vector2(0.632694, 0.632694)
+texture = ExtResource("3_n0a7y")
+
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
