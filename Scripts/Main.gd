@@ -12,6 +12,7 @@ const wind = {"north":     {"dir":Vector2i(-1,-1),"rota": 0,   "text":"N"  },
 @onready var pause_menu = $"Pause"
 @onready var end = $"EndRound"
 @onready var scoreboard = $"EndRound/VBoxContainer/FinalScoreTotalLable"
+@onready var highscore = $"EndRound/VBoxContainer//HighScoreTotlaLable"
 
 var gameOver = false
 var paused = false
@@ -57,6 +58,10 @@ func setPause():
 func _on_tile_game_map_all_fire_out(finalScore):
 	gameOver = true
 	scoreboard.text = str(finalScore)
+	if Global.save_data.high_score < finalScore:
+		Global.save_data.high_score=finalScore
+		Global.save_data.save()
+	highscore.text = str(Global.save_data.high_score)
 	end.show()
 	Engine.time_scale = 0
 	
