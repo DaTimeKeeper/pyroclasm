@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://578mjdy0o5n6" path="res://Objects/TileGameMap.tscn" id="2_gl74d"]
 [ext_resource type="PackedScene" uid="uid://gh0drmafbvos" path="res://Objects/playerCamera.tscn" id="3_lwgnc"]
 [ext_resource type="PackedScene" uid="uid://d01irkvscnjfy" path="res://Objects/ScoreBoard.tscn" id="4_quj51"]
-[ext_resource type="PackedScene" uid="uid://bihij5mkjrxn5" path="res://GameScenes/Pause.tscn" id="5_hot31"]
+[ext_resource type="PackedScene" uid="uid://cb7fgrjqh8bkw" path="res://GameScenes/Pause.tscn" id="5_hot31"]
 [ext_resource type="Texture2D" uid="uid://b5ikdynr3vica" path="res://ArtAssets/arrow.png" id="5_o7hrm"]
 [ext_resource type="PackedScene" uid="uid://bydvgtt4arge" path="res://GameScenes/EndRound.tscn" id="6_ia1sg"]
 
@@ -18,9 +18,10 @@ point_count = 6
 script = ExtResource("1_nwhy3")
 
 [node name="PlayerCamera2" parent="." instance=ExtResource("3_lwgnc")]
-position = Vector2(-672, -384)
-zoom = Vector2(1.4, 1.4)
+position = Vector2(-522, -281)
+zoom = Vector2(1.8, 1.8)
 position_smoothing_enabled = false
+speed = 400
 
 [node name="ScoreBoard" parent="PlayerCamera2" instance=ExtResource("4_quj51")]
 
@@ -41,6 +42,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Path2D" type="Path2D" parent="PlayerCamera2"]
+position = Vector2(-159, -76)
 curve = SubResource("Curve2D_kkykr")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="PlayerCamera2/Path2D"]
@@ -53,9 +55,11 @@ position = Vector2(-64, -32)
 
 [node name="Pause" parent="." instance=ExtResource("5_hot31")]
 visible = false
+metadata/_edit_horizontal_guides_ = [544.0]
 
 [node name="EndRound" parent="." instance=ExtResource("6_ia1sg")]
 visible = false
+metadata/_edit_horizontal_guides_ = [576.0, 1088.0]
 
 [node name="FredSpawnerTimer" type="Timer" parent="."]
 autostart = true
